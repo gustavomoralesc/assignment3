@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css"
+import Bar from "./Bar.js"
+import Scatter from "./Scatter.js"
+import * as d3 from 'd3'
+import tips from "./tips.csv"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {data:[]}
+  }
+  componentDidMount() {
+    var self = this
+    d3.csv(tips, function(d){
+      return {
+        tip:parseFloat(d.tip),
+        total_bill:parseFloat(d.total_bill),
+        day:d.day
+      }
+    }).then(function(csv_data) {
+      console.log("Parsed CSV Data:", csv_data); // Log the parsed data
+
+      self.setState({data:csv_data})
+    }).catch(function(err) {
+      console.log(err)
+    })
+  }
+  render() {
+    return <div className="parent">
+    <div className="scatterplot"><Scatter data1={this.state.data}></Scatter></div>
+    <div className="barchart"><Bar data1={this.state.data}></Bar></div>
+    </div>;
+  }
 }
+
 
 export default App;
