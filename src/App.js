@@ -19,8 +19,6 @@ class App extends Component {
         day:d.day
       }
     }).then(function(csv_data) {
-      console.log("Parsed CSV Data:", csv_data); // Log the parsed data
-
       self.setState({data:csv_data})
     }).catch(function(err) {
       console.log(err)

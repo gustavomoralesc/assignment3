@@ -20,8 +20,7 @@ class Bar extends Component {
         const days = ["Sun", "Sat", "Thur", "Fri"];
         const averages = days.map(day => avgTipsByDay.get(day) || 0);
 
-
-        const margin = { top: 20, right: 30, bottom: 50, left: 40 },
+        const margin = { top: 60, right: 30, bottom: 50, left: 40 }, 
             w = 500 - margin.left - margin.right,
             h = 400 - margin.top - margin.bottom;
 
@@ -76,6 +75,14 @@ class Bar extends Component {
             .attr("transform", "rotate(-90)")
             .attr("text-anchor", "middle")
             .text("Average Tips");
+
+        container.append("text")
+            .attr("class", "chart_title")
+            .attr("x", (w + margin.left + margin.right) / 2)
+            .attr("y", margin.top / 2) 
+            .attr("text-anchor", "middle")
+            .style("font-size", "18px") //
+            .text("Average Tip by Day");
     }
 
     render() {
